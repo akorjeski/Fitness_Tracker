@@ -1,6 +1,3 @@
-const dotenv = require("dotenv");
-
-dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
@@ -23,13 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // If deployed on heroku, use the deployed database. Otherwise use the local workout database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/workout';
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
-
-
 
 // routes
 app.use(require('./routes/api-routes'));
@@ -40,6 +36,3 @@ app.listen(PORT, function() {
   // Log (server-side) when our server has started
   console.log(`Server listening on: http://localhost:${PORT}`);
 });
-const port = process.env.PORT || 3000;
-app.listen(port);
-module.exports = app;
