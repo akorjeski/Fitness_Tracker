@@ -39,3 +39,4 @@ app.listen(PORT, function() {
 });
 const port = process.env.PORT || 3000;
 app.listen(port);
+module.exports = app;
