@@ -1,4 +1,6 @@
-require('dotenv').config()
+const dotenv = require("dotenv");
+
+dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
@@ -21,8 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // If deployed on heroku, use the deployed database. Otherwise use the local workout database
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/workout';
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/akorjeski-fitness-tracker');
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+});
+
 
 
 // routes
